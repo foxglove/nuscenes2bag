@@ -1,0 +1,4 @@
+*.bag
+*.tgz
+.ipynb_checkpoints
+data
