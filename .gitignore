@@ -1,4 +1,6 @@
 *.bag
 *.tgz
+*.zip
 .ipynb_checkpoints
 data
+.DS_Store
