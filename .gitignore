@@ -2,5 +2,6 @@
 *.tgz
 *.zip
 .ipynb_checkpoints
+.Trash-*
 data
 .DS_Store
