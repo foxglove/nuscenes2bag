@@ -12,41 +12,55 @@ echo "Building nuscenes2bag:0.0.1"
 docker build -t nuscenes2bag:0.0.1 .
 
 if [ -d "${BASE_DATA_DIR}" ]; then
-  echo "${BASE_DATA_DIR} already exists. Skipping base data download."
+  echo "${BASE_DATA_DIR} already exists. Skipping base data."
 else
-  echo "Downloading base data"
-  wget -N https://www.nuscenes.org/data/v1.0-mini.tgz
-  echo "Unpacking base data"
-  tar -xzf v1.0-mini.tgz -C data
-  rm v1.0-mini.tgz
+  FILE="v1.0-mini.tgz"
+  if [ -f "${FILE}" ]; then
+    echo "Unpacking base data (${FILE})"
+    tar -xzf "${FILE}" -C data
+  else
+    echo "Missing base data \"${FILE}\", please download it from nuscenes.org"
+    exit 1
+  fi
 fi
 
 if [ -d "${MAP_EXPANSION_DATA_DIR}" ]; then
-  echo "${MAP_EXPANSION_DATA_DIR} already exists. Skipping map expansion data download."
+  echo "${MAP_EXPANSION_DATA_DIR} already exists. Skipping map expansion data."
 else
-  echo "Downloading map expansion data"
-  wget -N https://s3.amazonaws.com/data.nuscenes.org/public/v1.0/nuScenes-map-expansion-v1.3.zip
-  echo "Unpacking map expansion data"
-  tar -xzf nuScenes-map-expansion-v1.3.zip -C data/maps
-  rm nuScenes-map-expansion-v1.3.zip
+  FILE="nuScenes-map-expansion-v1.3.zip"
+  if [ -f "${FILE}" ]; then
+    echo "Unpacking map expansion data (${FILE})"
+    unzip "${FILE}" -d data/maps
+  else
+    echo "Missing map expansion data \"${FILE}\", please download it from nuscenes.org"
+    exit 1
+  fi
 fi
 
 if [ -d "${NUPLAN_MAP_DATA_DIR}" ]; then
-  echo "${NUPLAN_MAP_DATA_DIR} already exists. Skipping nuPlan maps data download."
+  echo "${NUPLAN_MAP_DATA_DIR} already exists. Skipping nuPlan maps data."
 else
-  echo "Downloading nuPlan maps data"
-  wget -N https://s3.amazonaws.com/data.nuscenes.org/public/nuplan-v0.1/nuplan-maps-v0.1.zip
-  echo "Unpacking nuPlan maps data"
-  tar -xzf nuplan-maps-v0.1.zip -C data --strip 1
-  rm nuplan-maps-v0.1.zip
+  FILE="nuplan-maps-v0.1.zip"
+  if [ -f "${FILE}" ]; then
+    echo "Unpacking nuPlan maps data (${FILE})"
+    unzip "${FILE}"
+    cp -R nuplan-maps-v0.1/* data/
+    rm -rf nuplan-maps-v0.1
+  else
+    echo "Missing nuPlan maps data \"${FILE}\", please download it from nuscenes.org"
+    exit 1
+  fi
 fi
 
 if [ -d "${CAN_DATA_DIR}" ]; then
-  echo "${CAN_DATA_DIR} already exists. Skipping CAN bus data download."
+  echo "${CAN_DATA_DIR} already exists. Skipping CAN bus data."
 else
-  echo "Downloading CAN bus data"
-  wget -N https://s3.amazonaws.com/data.nuscenes.org/public/v1.0/can_bus.zip
-  echo "Unpacking CAN bus data"
-  tar -xzf can_bus.zip -C data
-  rm can_bus.zip
+  FILE="can_bus.zip"
+  if [ -f "${FILE}" ]; then
+    echo "Unpacking CAN bus data (${FILE})"
+    unzip "${FILE}" -d data
+  else
+    echo "Missing CAN bus data \"${FILE}\", please download it from nuscenes.org"
+    exit 1
+  fi
 fi
