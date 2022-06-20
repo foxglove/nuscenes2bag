@@ -5,3 +5,4 @@
 .Trash-*
 data
 .DS_Store
+.vscode
