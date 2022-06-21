@@ -11,6 +11,7 @@ RUN pip3 install git+https://github.com/DanielPollithy/pypcd.git
 
 # RUN source /usr/local/bin/virtualenvwrapper.sh
 RUN mkdir /notebooks
+COPY . /notebooks
 
 WORKDIR /notebooks
 EXPOSE 8888/tcp
