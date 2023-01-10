@@ -2,6 +2,10 @@
 
 > _Convert [nuScenes](https://www.nuscenes.org/) data into ROS [bag](http://wiki.ros.org/rosbag) format_
 
+## Migrated
+
+This project is no longer maintained, it has been superseded by https://github.com/foxglove/nuscenes2mcap.
+
 ## Introduction
 
 nuScenes is a large-scale dataset of autonomous driving in urban environments, provided free for non-commercial use. This project provides helper scripts to download the nuScenes dataset and convert scenes into ROS bag files for easy viewing in tools such as [Foxglove Studio](https://foxglove.dev/).
